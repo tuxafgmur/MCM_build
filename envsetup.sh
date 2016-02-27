@@ -514,10 +514,11 @@ function print_lunch_menu()
     echo
     if [ "z${CM_DEVICES_ONLY}" != "z" ]; then
        echo "Breakfast menu... pick a combo:"
+       
     else
        echo "Lunch menu... pick a combo:"
     fi
-
+    echo
     local i=1
     local choice
     for choice in ${LUNCH_MENU_CHOICES[@]}
@@ -525,10 +526,6 @@ function print_lunch_menu()
         echo " $i. $choice "
         i=$(($i+1))
     done | column
-
-    if [ "z${CM_DEVICES_ONLY}" != "z" ]; then
-       echo "... and don't forget the bacon!"
-    fi
 
     echo
 }
@@ -554,7 +551,7 @@ function breakfast()
     add_lunch_combo full-eng
     for f in `/bin/ls vendor/cm/vendorsetup.sh 2> /dev/null`
         do
-            echo "including $f"
+            #echo "including $f"
             . $f
         done
     unset f
@@ -622,20 +619,8 @@ function lunch()
     check_product $product
     if [ $? -ne 0 ]
     then
-        # if we can't find a product, try to grab it off the CM github
-        T=$(gettop)
-        pushd $T > /dev/null
-        build/tools/roomservice.py $product
-        popd > /dev/null
-        check_product $product
-    else
-        build/tools/roomservice.py $product true
-    fi
-    if [ $? -ne 0 ]
-    then
         echo
         echo "** Don't have a product spec for: '$product'"
-        echo "** Do you have the right repo manifest?"
         product=
     fi
 
@@ -774,12 +759,6 @@ EOF
     else
         echo "The connected device does not appear to be $CM_BUILD, run away!"
     fi
-}
-
-function omnom
-{
-    brunch $*
-    eat
 }
 
 function gettop
@@ -2443,9 +2422,9 @@ function mk_timer()
     fi
     echo
     if [ $ret -eq 0 ] ; then
-        printf "${color_success}#### make completed successfully "
+        printf "${color_success}#### build completed successfully "
     else
-        printf "${color_failed}#### make failed to build some targets "
+        printf "${color_failed}**** FAILED to build some targets "
     fi
     if [ $hours -gt 0 ] ; then
         printf "(%02g:%02g:%02g (hh:mm:ss))" $hours $mins $secs
@@ -2488,7 +2467,7 @@ fi
 for f in `test -d device && find -L device -maxdepth 4 -name 'vendorsetup.sh' 2> /dev/null | sort` \
          `test -d vendor && find -L vendor -maxdepth 4 -name 'vendorsetup.sh' 2> /dev/null | sort`
 do
-    echo "including $f"
+    #echo "including $f"
     . $f
 done
 unset f
@@ -2499,7 +2478,7 @@ check_bash_version && {
     for dir in $dirs; do
     if [ -d ${dir} ]; then
         for f in `/bin/ls ${dir}/[a-z]*.bash 2> /dev/null`; do
-            echo "including $f"
+            ##echo "including $f"
             . $f
         done
     fi
