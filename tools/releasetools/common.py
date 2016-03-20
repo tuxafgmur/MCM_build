@@ -973,7 +973,7 @@ def ZipWriteStr(zip_file, zinfo_or_arcname, data, perms=None,
     zinfo.external_attr = perms << 16
 
   # Use a fixed timestamp so the output is repeatable.
-  zinfo.date_time = (2009, 1, 1, 0, 0, 0)
+  zinfo.date_time = (2016, 1, 1, 0, 0, 0)
 
   zip_file.writestr(zinfo, data)
   zipfile.ZIP64_LIMIT = saved_zip64_limit
