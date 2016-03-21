@@ -1445,6 +1445,10 @@ def MakeRecoveryPatch(input_dir, output_sink, recovery_img, boot_img,
   common.LoadInfoDict() on the input target_files.
   """
 
+  norecoverypatch = os.environ.get("NO_RECOVERY_PATCH")
+  if norecoverypatch == 'true':
+    return
+
   if info_dict is None:
     info_dict = OPTIONS.info_dict
 
