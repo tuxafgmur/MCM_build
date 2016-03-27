@@ -370,7 +370,6 @@ $(APKCERTS_FILE):
 	    $(call _apkcerts_echo_with_newline,\
 	      'name="$(p).apk" certificate="$(PACKAGES.$(p).CERTIFICATE)" \
 	      private_key="$(PACKAGES.$(p).PRIVATE_KEY)"' >> $@)))
-	# In case value of PACKAGES is empty.
 	$(hide) touch $@
 
 .PHONY: apkcerts-list
@@ -490,6 +489,8 @@ BUILT_RAMDISK_TARGET := $(PRODUCT_OUT)/ramdisk.img
 # We just build this directly to the install location.
 INSTALLED_RAMDISK_TARGET := $(BUILT_RAMDISK_TARGET)
 $(INSTALLED_RAMDISK_TARGET): $(MKBOOTFS) $(INTERNAL_RAMDISK_FILES) | $(MINIGZIP)
+	@echo "Custom boot files..."
+	$(hide) $(TARGET_DEVICE_DIR)/custom_boot.sh $(TARGET_DEVICE_DIR) $(TARGET_ROOT_OUT)
 	$(call pretty,"Target ram disk: $@")
 	$(hide) $(MKBOOTFS) -d $(TARGET_OUT) $(TARGET_ROOT_OUT) | $(MINIGZIP) > $@
 
@@ -974,7 +975,6 @@ define build-recoveryramdisk
   $(hide) cp -f $(recovery_initrc) $(TARGET_RECOVERY_ROOT_OUT)/
   $(hide) rm -f $(TARGET_RECOVERY_ROOT_OUT)/sepolicy
   $(hide) cp -f $(recovery_sepolicy) $(TARGET_RECOVERY_ROOT_OUT)/sepolicy
-  $(hide) mv $(TARGET_ROOT_OUT)/init.recovery.*.rc $(TARGET_RECOVERY_ROOT_OUT)/ || true # Ignore error when the src file doesn't exist.
   $(hide) mkdir -p $(TARGET_RECOVERY_ROOT_OUT)/res
   $(hide) rm -rf $(TARGET_RECOVERY_ROOT_OUT)/res/*
   $(hide) cp -rf $(recovery_resources_common)/* $(TARGET_RECOVERY_ROOT_OUT)/res
@@ -990,6 +990,8 @@ define build-recoveryramdisk
   $(hide) cp $(RECOVERY_INSTALL_OTA_KEYS) $(TARGET_RECOVERY_ROOT_OUT)/res/keys
   $(hide) cat $(INSTALLED_DEFAULT_PROP_TARGET) $(recovery_build_prop) \
           > $(TARGET_RECOVERY_ROOT_OUT)/default.prop
+  @echo "Custom recovery files..."
+  $(hide) $(TARGET_DEVICE_DIR)/custom_recovery.sh $(TARGET_RECOVERY_OUT)
 endef
 
 RECOVERYIMAGE_ID_FILE := $(PRODUCT_OUT)/recovery.id
