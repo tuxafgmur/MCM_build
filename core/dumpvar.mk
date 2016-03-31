@@ -87,10 +87,10 @@ $(info   HOST_OS=$(HOST_OS))
 $(info   HOST_OS_EXTRA=$(HOST_OS_EXTRA))
 $(info   HOST_BUILD_TYPE=$(HOST_BUILD_TYPE))
 $(info   BUILD_ID=$(BUILD_ID))
-ifneq ($(BLOCK_BASED_OTA),)
-$(info   BLOCK_BASED_OTA=$(BLOCK_BASED_OTA))
-else
+ifneq ($(BLOCK_BASED_OTA),false)
 $(info   BLOCK_BASED_OTA=true)
+else
+$(info   BLOCK_BASED_OTA=false)
 endif
 $(info   OUT_DIR=$(OUT_DIR))
 ifeq ($(CYNGN_TARGET),true)
