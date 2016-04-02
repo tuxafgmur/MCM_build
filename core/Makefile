@@ -995,7 +995,7 @@ define build-recoveryramdisk
   $(hide) cat $(INSTALLED_DEFAULT_PROP_TARGET) $(recovery_build_prop) \
           > $(TARGET_RECOVERY_ROOT_OUT)/default.prop
   @echo "Custom recovery files..."
-  $(hide) $(TARGET_DEVICE_DIR)/custom_recovery.sh $(TARGET_RECOVERY_OUT)
+  $(hide) $(TARGET_DEVICE_DIR)/custom_recovery.sh $(TARGET_RECOVERY_OUT) $(RECOVERY_VARIANT)
 endef
 
 RECOVERYIMAGE_ID_FILE := $(PRODUCT_OUT)/recovery.id
