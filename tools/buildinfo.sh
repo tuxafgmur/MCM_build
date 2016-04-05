@@ -40,7 +40,7 @@ if [ -n "$TARGET_CPU_ABI_LIST_64_BIT" ] ; then
 echo "ro.product.cpu.abilist64=$TARGET_CPU_ABI_LIST_64_BIT"
 fi
 echo "ro.product.manufacturer=$PRODUCT_MANUFACTURER"
-if [ -n "$PRODUCT_DEFAULT_LOCALE" ] ; then
+if [ -n "$PRODUCT_DEFAULT_LOCALE" ] && [ -z "$TARGET_SKIP_DEFAULT_LOCALE" ] ; then
   echo "ro.product.locale=$PRODUCT_DEFAULT_LOCALE"
 fi
 echo "ro.board.platform=$TARGET_BOARD_PLATFORM"
