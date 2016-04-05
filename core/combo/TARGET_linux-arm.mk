@@ -75,7 +75,7 @@ $(combo_2nd_arch_prefix)TARGET_arm_CFLAGS :=  -O2 \
                         -w 
 
 # Modules can choose to compile some source as thumb.
-$(combo_2nd_arch_prefix)TARGET_thumb_CFLAGS :=  -O2 \
+$(combo_2nd_arch_prefix)TARGET_thumb_CFLAGS :=  -Os \
 			-mthumb \
                         -fomit-frame-pointer \
                         -fno-strict-aliasing \
@@ -103,7 +103,6 @@ $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += \
 			-fdata-sections \
 			-funwind-tables \
 			-fstack-protector \
-			-fomit-frame-pointer \
 			-Wa,--noexecstack \
 			-Werror=format-security \
 			-D_FORTIFY_SOURCE=2 \
@@ -147,7 +146,7 @@ $(combo_2nd_arch_prefix)TARGET_GLOBAL_LDFLAGS += \
 
 $(combo_2nd_arch_prefix)TARGET_GLOBAL_CFLAGS += -mthumb-interwork
 
-$(combo_2nd_arch_prefix)TARGET_GLOBAL_CPPFLAGS += -fvisibility-inlines-hidden -fomit-frame-pointer -w 
+$(combo_2nd_arch_prefix)TARGET_GLOBAL_CPPFLAGS += -fvisibility-inlines-hidden -w 
 
 # More flags/options can be added here
 $(combo_2nd_arch_prefix)TARGET_RELEASE_CFLAGS := \
