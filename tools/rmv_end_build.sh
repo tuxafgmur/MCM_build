@@ -8,3 +8,4 @@ WOURTDIR=${WSYSTEMDIR%/system}
 rm -rf $WOURTDIR/obj/PACKAGING
 rm -rf $WOURTDIR/ota_temp
 rm -rf $WOURTDIR/*ota*.zip
+rm -rf $WOURTDIR/ramdisk-recovery.*
