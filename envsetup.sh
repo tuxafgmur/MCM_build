@@ -2434,6 +2434,7 @@ function mk_timer()
     echo
     if [ $ret -eq 0 ] ; then
         printf "${color_success}#### build completed successfully "
+        build/tools/rmv_end_build.sh $ANDROID_PRODUCT_OUT
     else
         printf "${color_failed}**** FAILED to build some targets "
     fi
