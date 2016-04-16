@@ -19,7 +19,9 @@ echo "ro.build.flavor=$TARGET_BUILD_FLAVOR"
 echo "ro.build.characteristics=$TARGET_AAPT_CHARACTERISTICS"
 if [ "$TARGET_UNIFIED_DEVICE" == "" ] ; then
   echo "ro.build.product=$TARGET_DEVICE"
-  echo "ro.product.model=$PRODUCT_MODEL"
+  if [ -z "$TARGET_SKIP_PRODUCT_DEVICE" ] ; then
+    echo "ro.product.model=$PRODUCT_MODEL"
+  fi
   echo "ro.product.device=$TARGET_DEVICE"
   echo "ro.build.description=$PRIVATE_BUILD_DESC"
   echo "ro.build.fingerprint=$BUILD_FINGERPRINT"
