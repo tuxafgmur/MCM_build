@@ -1238,8 +1238,8 @@ endif
 define build-systemimage-target
   @echo "Target system fs image: $(1)"
   $(call create-system-vendor-symlink)
-  @echo "Clean unneeded files..."
-  $(hide) $(TARGET_DEVICE_DIR)/rmv_from_img.sh $(TARGET_OUT)
+  @echo "Custom rom files..."
+  $(hide) $(TARGET_DEVICE_DIR)/custom_rom.sh $(TARGET_OUT)
   @mkdir -p $(dir $(1)) $(systemimage_intermediates) && rm -rf $(systemimage_intermediates)/system_image_info.txt
   $(call generate-userimage-prop-dictionary, $(systemimage_intermediates)/system_image_info.txt, \
       skip_fsck=true)
