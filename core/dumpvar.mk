@@ -61,13 +61,19 @@ endif
 
 endif # CALLED_FROM_SETUP
 
-
 ifneq ($(PRINT_BUILD_CONFIG),)
 HOST_OS_EXTRA:=$(shell python -c "import platform; print(platform.platform())")
-$(info ============================================)
+
+$(info =================== CyanogenMod ===================)
+$(info   HOST_OS=$(HOST_OS))
+$(info   HOST_ARCH=$(HOST_ARCH))
+$(info   HOST_OS_EXTRA=$(HOST_OS_EXTRA))
+$(info   HOST_BUILD_TYPE=$(HOST_BUILD_TYPE))
+$(info   )
+$(info   BUILD_ID=$(BUILD_ID))
+$(info   CM_VERSION=$(CM_VERSION))
 $(info   PLATFORM_VERSION_CODENAME=$(PLATFORM_VERSION_CODENAME))
 $(info   PLATFORM_VERSION=$(PLATFORM_VERSION))
-$(info   CM_VERSION=$(CM_VERSION))
 $(info   TARGET_PRODUCT=$(TARGET_PRODUCT))
 $(info   TARGET_BUILD_VARIANT=$(TARGET_BUILD_VARIANT))
 $(info   TARGET_BUILD_TYPE=$(TARGET_BUILD_TYPE))
@@ -82,11 +88,16 @@ $(info   TARGET_2ND_ARCH=$(TARGET_2ND_ARCH))
 $(info   TARGET_2ND_ARCH_VARIANT=$(TARGET_2ND_ARCH_VARIANT))
 $(info   TARGET_2ND_CPU_VARIANT=$(TARGET_2ND_CPU_VARIANT))
 endif
-$(info   HOST_ARCH=$(HOST_ARCH))
-$(info   HOST_OS=$(HOST_OS))
-$(info   HOST_OS_EXTRA=$(HOST_OS_EXTRA))
-$(info   HOST_BUILD_TYPE=$(HOST_BUILD_TYPE))
-$(info   BUILD_ID=$(BUILD_ID))
+ifeq ($(TARGET_NO_RECOVERY),true)
+$(info   TARGET_NO_RECOVERY=$(TARGET_NO_RECOVERY))
+else
+ifneq ($(RECOVERY_VARIANT),)
+$(info   RECOVERY_VARIANT=$(RECOVERY_VARIANT))
+endif
+endif
+ifeq ($(WITH_DEXPREOPT),true)
+$(info   WITH_DEXPREOPT=$(WITH_DEXPREOPT))
+endif
 ifneq ($(BLOCK_BASED_OTA),false)
 $(info   BLOCK_BASED_OTA=true)
 else
@@ -97,5 +108,5 @@ ifeq ($(CYNGN_TARGET),true)
 $(info   CYNGN_TARGET=$(CYNGN_TARGET))
 $(info   CYNGN_FEATURES=$(CYNGN_FEATURES))
 endif
-$(info ============================================)
+$(info ===================================================)
 endif
